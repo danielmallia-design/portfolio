@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphic Design Portfolio</title>
+
+  <!-- Force light mode only -->
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+
+  <style>
+    /* Declare light mode only */
+    html {
+      color-scheme: light;
+    }
+
+    /* Reset & base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: #e0e5ec;
+      color: #333;
+      line-height: 1.4;
+      padding: 2rem;
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { color: #1a1a1a; }
+    h1 { font-size: 2.5rem; margin-bottom: .5rem; }
+    h2 { font-size: 1.75rem; margin: 2rem 0 .75rem; }
+    h3 { font-size: 1.25rem; margin: 1.5rem 0 .5rem; }
+
+    /* Neumorphic containers */
+    .container { max-width: 1200px; margin: 0 auto; }
+    .neu {
+      background: #e0e5ec;
+      border-radius: 16px;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+      padding: 1rem;
+    }
+    .neu-sm {
+      background: #e0e5ec;
+      box-shadow: 4px 4px 8px #a3b1c6, -4px -4px 8px #ffffff;
+      border-radius: 12px;
+      padding: .5rem;
+    }
+
+    /* Header */
+    header { text-align: center; margin-bottom: 2rem; }
+    header p { color: #555; }
+
+    /* Favorite Projects */
+    .featured {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .featured img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform .2s ease;
+    }
+    .featured img:nth-child(even) { transform: rotate(-5deg); }
+    .featured img:nth-child(odd)  { transform: rotate(5deg); }
+    .featured img:hover { transform: scale(1.05) rotate(0deg); }
+
+    /* Sections grid */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Default: cards are squares */
+    .section-grid .card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform .2s ease;
+      cursor: pointer;
+    }
+    .section-grid .card:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Posters: A3 aspect ratio */
+    .section-grid.posters .card img {
+      aspect-ratio: 297 / 420;
+      object-fit: contain;
+    }
+
+    /* Modal overlay */
+    #modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+    }
+
+    /* Modal content wrapper: no glow, subtle shadow only */
+    #modal-content {
+      position: relative;
+      border-radius: 12px;
+      animation: fadeInSmooth 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
+      padding: 0;
+    }
+    #modal-content.closing {
+      animation: fadeOutSmooth 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+
+    /* Fullscreen image: remove white glow, add subtle drop-shadow */
+    #modal-content img {
+      display: block;
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    /* Accent */
+    .accent {
+      border-left: 4px solid #a3b1c6;
+      padding-left: .75rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: .9rem;
+      color: #555;
+    }
+
+    /* Lazy image placeholder */
+    .lazy-img {
+      filter: blur(10px);
+      transform: scale(1.02);
+      transition: filter .3s ease, transform .3s ease;
+      background: #d4d9e2;
+    }
+
+    .lazy-loaded {
+      filter: blur(0);
+      transform: scale(1);
+    }
+
+    /* Animations */
+    @keyframes fadeInSmooth {
+      from { transform: scale(0.8); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    @keyframes fadeOutSmooth {
+      from { transform: scale(1);   opacity: 1; }
+      to   { transform: scale(0.7); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Portfolio Highlights</h1>
+      <p>Work across my full design journey, from early experiments to recent work. I use Photoshop and InDesign, and I focus on strong color theory and clean layout design. I also handle simple video edits in CapCut and DaVinci Resolve. Past projects include work for Lithium, The Veil, and the Roblox games Greg’s Hot Potato Parkour and The Sahur Hotel.</p>
+    </header>
+
+    <section>
+      <h2>Favorite Projects</h2>
+      <div class="neu featured">
+        <img class="lazy-img" data-src="/images/poster1 A3 copy.png" alt="Featured 1" loading="lazy">
+        <img class="lazy-img" data-src="/images/Roblox AD1 copy3.png" alt="Featured 2" loading="lazy">
+        <img class="lazy-img" data-src="/images/giveaway copy5.png" alt="Featured 3" loading="lazy">
+        <img class="lazy-img" data-src="/images/setlist THE VEIL.png" alt="Featured 4" loading="lazy">
+        <img class="lazy-img" data-src="/images/setlist final final omfg the final.png" alt="Featured 5" loading="lazy">
+        <img class="lazy-img" data-src="/images/12am.png" alt="Featured 6" loading="lazy">
+        <img class="lazy-img" data-src="/images/the veil 1 week2.png" alt="Featured 7" loading="lazy">
+      </div>
+    </section>
+
+    <section>
+      <h2 class="accent">Lithium Posters</h2>
+      <div class="neu-sm section-grid posters">
+        <div class="card"><img class="lazy-img" data-src="/images/poster1 A3 copy.png" alt="Lithium Poster 1" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/lithium RELAPSE trackage scheme.jpg" alt="Lithium Poster 2" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/psychosis a3 poster.jpg" alt="Lithium Poster 3" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/a3 poster copy.png" alt="Lithium Poster 4" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/a3 poster copy5.png" alt="Lithium Poster 5" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="accent">Lithium General</h2>
+      <div class="neu-sm section-grid">
+        <div class="card"><img class="lazy-img" data-src="/images/charlize dog copy 2.png" alt="Lithium General 1" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/1 WEEK LEFT.png" alt="Lithium General 2" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/shirt first draft.png" alt="Lithium General 3" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/12am.png" alt="Lithium General 4" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/MOSH HOUR FINAL FINFAL.png" alt="Lithium General 5" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/wanted copy 2.png" alt="Lithium General 6" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/lithium psychosis png .png" alt="Lithium General 7" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/SEE YOU TONIGHT copy.png" alt="Lithium General 8" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/1 week left copy4.png" alt="Lithium General 9" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/setlist final final omfg the final.png" alt="Lithium General 10" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/tickets selling fast part 2.png" alt="Lithium General 11" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/10pm.png" alt="Lithium General 12" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/giveaway copy5.png" alt="Lithium General 13" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/highlight icon copy.png" alt="Lithium General 14" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/ps2 1 week left copy.jpg" alt="Lithium General 15" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="accent">Roblox Billboards</h2>
+      <div class="neu-sm section-grid">
+        <div class="card"><img class="lazy-img" data-src="/images/Roblox AD1 copy3.png" alt="Roblox Billboard 1" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/Thumbnail brainrot.png" alt="Roblox Thumbnail 2" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/Thumbnail plant.png" alt="Roblox Thumbnail 2" loading="lazy"></div>
+      </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="accent">Other Work</h2>
+      <div class="neu-sm section-grid">
+        <div class="card"><img class="lazy-img" data-src="/images/ravers-finished.jpg" alt="Other Work 1" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/the veil 1 week2.png" alt="Other Work 2" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/setlist THE VEIL.png" alt="Other Work 3" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/travis v1 copy.png" alt="Other Work 4" loading="lazy"></div>
+        <div class="card"><img class="lazy-img" data-src="/images/mark v1 copy.jpg" alt="Other Work 5" loading="lazy"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal Viewer -->
+  <div id="modal" onclick="closeModal()">
+    <div id="modal-content" onclick="event.stopPropagation()">
+      <img id="modal-img" src="" alt="Full View">
+    </div>
+  </div>
+
+  <footer>
+    Daniel Mallia | <a href="mailto:daniel.mallia05@gmail.com">daniel.mallia05@gmail.com</a>
+  </footer>
+
+  <script>
+    // Lazy initialize audio context on first interaction
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    // Analog-style click sounds using filtered noise bursts
+    function playAnalogClick(type) {
+      const ctx = getAudioCtx();
+      const duration = type === 'hover' ? 0.05 : 0.1;
+      const bufferSize = ctx.sampleRate * duration;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * 0.5;
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = type === 'hover' ? 1000 : 600;
+      filter.Q.value = 1;
+
+      const gain = ctx.createGain();
+      const now = ctx.currentTime;
+      const startGain = type === 'hover' ? 0.05 : 0.15;
+
+      gain.gain.setValueAtTime(startGain, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      noise.start();
+      noise.stop(now + duration);
+    }
+
+    const modal = document.getElementById('modal');
+    const content = document.getElementById('modal-content');
+    const modalImg = document.getElementById('modal-img');
+
+    function openModal(src) {
+      playAnalogClick('click');
+      modalImg.src = src;
+      content.classList.remove('closing');
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      playAnalogClick('click');
+      content.classList.add('closing');
+      content.addEventListener('animationend', () => {
+        modal.style.display = 'none';
+        modalImg.src = '';
+      }, { once: true });
+    }
+
+    // Lazy loading for all images with data-src
+    const lazyImages = document.querySelectorAll('img[data-src]');
+
+    function loadImage(img) {
+      const src = img.getAttribute('data-src');
+      if (!src) return;
+      img.src = src;
+      img.removeAttribute('data-src');
+      img.classList.remove('lazy-img');
+      img.classList.add('lazy-loaded');
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadImage(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: '200px 0px',
+        threshold: 0.01
+      });
+
+      lazyImages.forEach(img => observer.observe(img));
+    } else {
+      // Fallback: load all immediately
+      lazyImages.forEach(img => loadImage(img));
+    }
+
+    // Single event listener for clicks and hovers on all images (event delegation)
+    document.addEventListener('mouseover', event => {
+      const img = event.target;
+      if (img.tagName === 'IMG' && (img.closest('.card') || img.closest('.featured'))) {
+        playAnalogClick('hover');
+      }
+    });
+
+    document.addEventListener('click', event => {
+      const img = event.target;
+      if (img.tagName === 'IMG' && (img.closest('.card') || img.closest('.featured'))) {
+        // Use data-full later if you ever add separate full-res versions
+        const fullSrc = img.getAttribute('data-full') || img.src || img.getAttribute('data-src');
+        if (fullSrc) {
+          openModal(fullSrc);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
